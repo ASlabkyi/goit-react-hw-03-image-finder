@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { Loader } from 'components/Loader/Loader';
-import PropTypes from 'prop-types';
 
 import { Searchbar } from './Searchbar/Searchbar';
 import { Global } from '@emotion/react';
@@ -86,7 +85,3 @@ export class App extends Component {
     );
   }
 }
-
-App.propTypes = {
-  onSubmit: PropTypes.func,
-};
