@@ -6,6 +6,7 @@ import { Global } from '@emotion/react';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { LoadMoreBtn } from './Button/Button';
 import { getData } from './services/postService';
+import { Modal } from './Modal/Modal';
 
 import { Container, globalStyles, AppWrapper } from './App.styled';
 
@@ -15,6 +16,7 @@ export class App extends Component {
     isLoading: false,
     search: '',
     page: 1,
+    modalImage: '',
   };
 
   async componentDidUpdate(_, prevState) {
@@ -50,6 +52,14 @@ export class App extends Component {
     this.setState(prev => ({ page: prev.page + 1 }));
   };
 
+  openModal = url => {
+    this.setState({ imageModal: url });
+  };
+
+  closeModal = () => {
+    this.setState({ imageModal: '' });
+  };
+
   render() {
     const { hits, isLoading } = this.state;
 
@@ -58,11 +68,17 @@ export class App extends Component {
         <Global styles={globalStyles} />
         <AppWrapper>
           <Searchbar onSubmit={this.handleChangeSearch}></Searchbar>
-          <ImageGallery hits={hits} />
+          <ImageGallery hits={hits} openModal={this.openModal} />
 
           {isLoading && <Loader />}
           {hits.length > 0 && (
             <LoadMoreBtn title="Load More" onClick={this.handleChangePage} />
+          )}
+          {this.state.imageModal && (
+            <Modal
+              image={this.state.imageModal}
+              closeModal={this.closeModal}
+            ></Modal>
           )}
         </AppWrapper>
       </Container>

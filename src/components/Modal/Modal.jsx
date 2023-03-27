@@ -1,11 +1,36 @@
+import { Component } from 'react';
+
 import { OverlayStyle, ModalStyle } from './Modal.styled';
 
-export const Modal = () => {
-  return (
-    <OverlayStyle>
-      <ModalStyle>
-        <img src="" alt="" />
-      </ModalStyle>
-    </OverlayStyle>
-  );
-};
+export class Modal extends Component {
+  handleBackground = e => {
+    if (e.target === e.currentTarget) {
+      this.props.closeModal();
+    }
+  };
+
+  handlePressKey = e => {
+    if (e.key === 'Escape') {
+      this.props.closeModal();
+    }
+  };
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.handlePressKey);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handlePressKey);
+  }
+
+  render() {
+    return (
+      <OverlayStyle onClick={this.handleBackground}>
+        <ModalStyle>
+          Modal
+          <img src={this.props.image} alt="" />
+        </ModalStyle>
+      </OverlayStyle>
+    );
+  }
+}
