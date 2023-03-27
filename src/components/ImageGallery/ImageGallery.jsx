@@ -1,8 +1,10 @@
+import PropTypes from 'prop-types';
+
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 
 import { ImageGalleryStyle } from './ImageGallery.styled';
 
-export const ImageGallery = ({ hits, isLoading, openModal }) => {
+export const ImageGallery = ({ hits, openModal }) => {
   return (
     <ImageGalleryStyle>
       {hits.map(({ id, webformatURL, tags, largeImageURL }) => (
@@ -11,7 +13,6 @@ export const ImageGallery = ({ hits, isLoading, openModal }) => {
           id={id}
           webformatURL={webformatURL}
           tags={tags}
-          isLoading={isLoading}
           openModal={() => {
             openModal(largeImageURL);
           }}
@@ -19,4 +20,16 @@ export const ImageGallery = ({ hits, isLoading, openModal }) => {
       ))}
     </ImageGalleryStyle>
   );
+};
+
+ImageGallery.propTypes = {
+  hits: PropTypes.arrayOf(
+    PropTypes.shape({
+      webformatURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+    })
+  ),
+  openModal: PropTypes.func.isRequired,
 };

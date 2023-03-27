@@ -1,4 +1,5 @@
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 axios.defaults.params = {
   key: '33988995-a64a390706535bd3a9c78052f',
@@ -16,3 +17,5 @@ export const getData = async (search, page) => {
   });
   return data;
 };
+
+getData.PropTypes;
